@@ -2,7 +2,7 @@
 import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 // Placeholder components
 const Home = () => <div>Home Page</div>;
@@ -38,12 +38,12 @@ const App = () => {
     <ApolloProvider client={client}>
       <Router>
         <Navbar />
-        <Switch>
+        <Routes>
           <Route path="/" element={<React.Fragment><Home /></React.Fragment>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/profile" element={<Profile />} />
-        </Switch>
+        </Routes>
       </Router>
     </ApolloProvider>
   );

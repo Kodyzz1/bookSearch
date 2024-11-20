@@ -1,5 +1,5 @@
 // server/src/schema/typeDefs.ts
-import { gql } from 'apollo-server-express';
+import { gql } from 'apollo-server';
 
 const typeDefs = gql`
   type User {
