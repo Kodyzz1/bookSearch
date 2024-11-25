@@ -1,13 +1,12 @@
 // server/src/schema/resolvers.ts
 import { AuthenticationError } from 'apollo-server-express';
 import User from '../models/User';
-import bookSchema from '../models/Book';
 import { signToken } from '../services/auth';
 import bcrypt from 'bcrypt';
 
 const resolvers = {
   Query: {
-    me: async (_: any, args: any, context: { user: any }) => {
+    me: async (_: any, context: { user: any }) => {
       if (context.user) {
         return User.findById(context.user._id).populate('savedBooks');
       }
@@ -34,7 +33,7 @@ const resolvers = {
       const token = signToken(username, email, user._id);
       return { token, user };
     },
-    saveBook: async (parent: any, { input }: { input: any }, context: { user: any }) => {
+    saveBook: async ( { input }: { input: any }, context: { user: any }) => {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
           context.user._id,
@@ -45,7 +44,7 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in');
     },
-    removeBook: async (_, { bookId }: { bookId: string }, context: { user: any }) => {
+    removeBook: async ( { bookId }: { bookId: string }, context: { user: any }) => {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
           context.user._id,
