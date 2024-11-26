@@ -1,7 +1,7 @@
 // server/src/schema/resolvers.ts
 import { AuthenticationError } from 'apollo-server-express';
-import User from '../models/User';
-import { signToken } from '../services/auth';
+import User from '../models/User.js';
+import { signToken } from '../services/auth.js';
 import bcrypt from 'bcrypt';
 
 const resolvers = {
