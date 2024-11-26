@@ -1,10 +1,11 @@
 import express from 'express';
 import path from 'node:path';
 import { ApolloServer } from 'apollo-server';
-import resolvers from './schema/resolvers';
-import typeDefs from './schema/typeDefs';
-import db from './config/connection';
 import routes from './routes';
+import db from './config/connection';
+import {resolvers, typeDefs} from './schema';
+
+
 import { authenticateGraphQL } from './services/auth';
 
 const app = express();
