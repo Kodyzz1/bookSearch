@@ -6,7 +6,7 @@ import db from './config/connection.js';
 import resolvers from './schema/resolvers.js';
 import typeDefs from './schema/typeDefs.js';
 
-import { authenticateGraphQL } from './services/auth';
+import { authenticateGraphQL } from './services/auth.js';
 
 const app = express();
 const PORT = process.env.PORT ?? 3001;
