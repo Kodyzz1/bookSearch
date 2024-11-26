@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'node:path';
 import { ApolloServer } from 'apollo-server';
-import routes from './routes';
+import routes from './routes/index.js';
 import db from './config/connection';
 import {resolvers, typeDefs} from './schema';
 
@@ -9,7 +9,7 @@ import {resolvers, typeDefs} from './schema';
 import { authenticateGraphQL } from './services/auth';
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT ?? 3001;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
