@@ -5,7 +5,7 @@ import routes from './routes/index.js';
 import db from './config/connection.js';
 import resolvers from './schema/resolvers.js';
 import typeDefs from './schema/typeDefs.js';
-import { getDirname } from './services/dirname';
+import { getDirname } from './services/dirname.js';
 import { authenticateGraphQL } from './services/auth.js';
 
 const app = express();
