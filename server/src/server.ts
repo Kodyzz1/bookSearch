@@ -7,7 +7,6 @@ import db from './config/connection.js';
 import resolvers from './schema/resolvers.js';
 import typeDefs from './schema/typeDefs.js';
 import { getDirname } from './services/dirname.js';
-import { authenticateGraphQL, authenticateToken } from './services/auth.js';
 import type { Request } from 'express';
 
 const app = express();
