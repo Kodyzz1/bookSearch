@@ -1,13 +1,14 @@
 import express from 'express';
 import path from 'node:path';
-import { ApolloServer } from 'apollo-server-express'; // Change this import
+import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import routes from './routes/index.js';
 import db from './config/connection.js';
 import resolvers from './schema/resolvers.js';
 import typeDefs from './schema/typeDefs.js';
 import { getDirname } from './services/dirname.js';
-import { authenticateGraphQL } from './services/auth.js';
+import { authenticateGraphQL, authenticateToken } from './services/auth.js';
+import type { Request } from 'express';
 
 const app = express();
 const PORT = process.env.PORT ?? 3001;
@@ -23,19 +24,30 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use(routes);
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: ({ req }) => ({ user: authenticateGraphQL({ req }), req }),
+interface MyContext {
+  user?: {
+    _id: string;
+    username: string;
+    email: string;
+  };
+  req: Request;
+}
+
+const server = new ApolloServer<MyContext>({
+  typeDefs,
+  resolvers,
 });
 
 const startApolloServer = async () => {
-  await server.start(); // Start the server
+  await server.start();
 
   app.use(
     '/graphql',
     expressMiddleware(server, {
-      context: async ({ req }) => ({ user: authenticateGraphQL({ req }), req }),
+      context: async ({ req }) => {
+        const user = authenticateToken({ req });
+        return { user, req };
+      }
     }),
   );
 

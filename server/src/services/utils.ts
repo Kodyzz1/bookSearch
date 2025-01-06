@@ -1,4 +1,4 @@
-import { getDirname } from './dirname';
+import { getDirname } from './dirname.js';
 
 const __dirname = getDirname(import.meta.url);
 
