@@ -8,6 +8,7 @@ import resolvers from './schema/resolvers.js';
 import typeDefs from './schema/typeDefs.js';
 import { getDirname } from './services/dirname.js';
 import type { Request } from 'express';
+import { authenticateToken } from './services/auth.js';
 
 const app = express();
 const PORT = process.env.PORT ?? 3001;

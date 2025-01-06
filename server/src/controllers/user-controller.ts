@@ -50,7 +50,7 @@ export const login = async (req: Request, res: Response) => {
 export const saveBook = async (req: Request, res: Response) => {
   try {
     const updatedUser = await User.findOneAndUpdate(
-      { _id: req.user._id },
+      { _id: req.user ? req.user._id : null },
       { $addToSet: { savedBooks: req.body } },
       { new: true, runValidators: true }
     );
@@ -64,7 +64,7 @@ export const saveBook = async (req: Request, res: Response) => {
 // remove a book from `savedBooks`
 export const deleteBook = async (req: Request, res: Response) => {
   const updatedUser = await User.findOneAndUpdate(
-    { _id: req.user._id },
+    { _id: req.user ? req.user._id : null },
     { $pull: { savedBooks: { bookId: req.params.bookId } } },
     { new: true }
   );
